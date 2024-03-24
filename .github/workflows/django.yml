@@ -6,7 +6,7 @@ on:
 
 jobs:
     build:
-        runs-on: ubunti-latest
+        runs-on: ubuntu-latest
         strategy:
             max-parallel: 1
             matrix:
