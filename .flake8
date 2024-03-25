@@ -1,0 +1,29 @@
+[flake8]
+# Limita o comprimento máximo da linha
+max-line-length = 200
+
+# Ignora alguns erros específicos
+ignore = E203,W503
+
+# Define diretórios ou arquivos a serem excluídos da análise
+exclude =
+    .git,
+    .gitignore,
+    __pycache__,
+    venv
+
+# Especifica as mensagens de erros a serem ignoradas por linha
+per-file-ignores =
+    # Ignora o erro E402 para este arquivo
+    script.py:E402
+
+# Lista de plugins a serem usados
+plugins =
+    flake8-docstrings,
+    flake8-import-order
+
+# Define regras personalizadas de importação
+import-order-style = google
+
+# Habilita verificação de docstrings
+docstring-convention = google
