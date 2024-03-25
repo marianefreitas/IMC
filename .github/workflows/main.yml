@@ -39,7 +39,7 @@ jobs:
           uses: akhileshNS/heroku-deploy@v3.13.15
           with:
             heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-            heroku-app-name: ${{secrets.HEROKU_APP_NAME}}
+            heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
             heroku_email: "2106474@aluno.univesp.br"
-            branch: "main"  
+            branch: main  
 
