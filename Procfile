@@ -1,1 +1,1 @@
-web: IMC.wsgi
+web: gunicorn IMC.wsgi
