@@ -29,7 +29,7 @@ jobs:
               run: |
                 python manage.py test
     deploy:
-      runs-on: ubunti-latest
+      runs-on: ubuntu-latest
       name: Deploy da aplicação Django no Heroku
       steps:
         - name: checkout       
