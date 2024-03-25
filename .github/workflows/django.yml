@@ -30,7 +30,7 @@ jobs:
                 python manage.py test
     deploy:
       runs-on: ubunti-latest
-      name: Deply da aplicação Django no Heroku
+      name: Deploy da aplicação Django no Heroku
       steps:
         - name: checkout       
           uses: actions/checkout@v4.1.1
