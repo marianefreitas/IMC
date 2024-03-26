@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 import django_on_heroku
+import sys
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -77,12 +78,31 @@ WSGI_APPLICATION = 'IMC.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
+""" DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+} """
+
+if 'test' in sys.argv:
+    DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+else:
+    DATABASES = {
+            'default':{
+                'ENGINE':'django.db.backends.postgresql_psycopg2',
+                'NAME':'dea8r2hrgpgfkk',
+                'USER':'ufd2lt8ou42dfn',
+                'PASSWORD':'p20f87477420996736cdc25c14e37efe1a8dac5b1ec918610547c952d561ddfaa',
+                'HOST':'cb889jp6h2eccm.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com',
+                'PORT':'5432',
+            }
+        }
 
 
 # Password validation
@@ -109,7 +129,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
