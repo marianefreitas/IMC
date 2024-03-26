@@ -87,22 +87,22 @@ WSGI_APPLICATION = 'IMC.wsgi.application'
 
 if 'test' in sys.argv:
     DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
 else:
     DATABASES = {
-            'default':{
-                'ENGINE':'django.db.backends.postgresql_psycopg2',
-                'NAME':'dea8r2hrgpgfkk',
-                'USER':'ufd2lt8ou42dfn',
-                'PASSWORD':'p20f87477420996736cdc25c14e37efe1a8dac5b1ec918610547c952d561ddfaa',
-                'HOST':'cb889jp6h2eccm.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com',
-                'PORT':'5432',
-            }
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'dea8r2hrgpgfkk',
+            'USER': 'ufd2lt8ou42dfn',
+            'PASSWORD': 'p20f87477420996736cdc25c14e37efe1a8dac5b1ec918610547c952d561ddfaa',
+            'HOST': 'cb889jp6h2eccm.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com',
+            'PORT': '5432',
         }
+    }
 
 
 # Password validation
