@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}IMC {% endblock %}
+
+{% block meta_description %} Descrição fora do padrão {% endblock %}
+
+{% block content %}
+
+    <section class="slider_section" id="slider_section">
+      <div id="customCarousel1" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="container ">
+              <div class="row">
+                <div class="col-md-6 ">
+                  <div class="detail-box">
+                    <h1>
+                      IMC
+                    </h1>
+                    <p>
+                      "O Índice de Massa Corporal (IMC) é um parâmetro bastante utilizado para classificar o indivíduo de acordo com seu peso e altura.Seu uso é disseminado principalmente entre profissionais que trabalham com o corpo, como médicos, fisioterapeutas e profissionais de Educação Física. É importante ressaltar que a Organização Mundial da Saúde (OMS) utiliza esse índice como indicador do nível de obesidade nos diferentes países."
+                    </p>
+                    <div class="btn-box">
+                      <a href="https://brasilescola.uol.com.br/educacao-fisica/Indice-massa-corporal-imc.htm" class="btn1" target="_blank">
+                        Leia Mais
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="img-box">
+                    <img src="{% static 'images/medicoIMC.png' %}" alt="">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item ">
+            <div class="container ">
+              <div class="row">
+                <div class="col-md-6 ">
+                  <div class="detail-box">
+                    <h1>
+                      Crianças <br>
+                      e Adolescentes
+                    </h1>
+                    <p>
+                      As crianças naturalmente começam a vida com um alto índice de gordura corpórea, mas vão ficando mais magras conforme envelhecem. Além disso, também há diferenças entre a composição corporal de meninos e meninas. E foi para poder levar todas essas diferenças em consideração que os cientistas criaram um IMC especialmente para as crianças .
+                    </p>
+                    <div class="btn-box">
+                      <a href="https://pt.wikipedia.org/wiki/%C3%8Dndice_de_massa_corporal" class="btn1" target="_blank">
+                        Leia Mais
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="img-box">
+                    <img src="{% static 'images/medico_crianca.png' %}" alt="" >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="container ">
+              <div class="row">
+                <div class="col-md-6 ">
+                  <div class="detail-box">
+                    <h1>
+                      Importancia IMC
+                    </h1>
+                    <p>
+                      Saber o IMC é importante para verificar se o peso está de acordo com a altura da pessoa, além de ser importante para saber se existe risco de desenvolver alguma doença. No caso das crianças, o IMC é importante para saber se o desenvolvimento está de acordo com o esperado.
+                    <div class="btn-box">
+                      <a href="https://www.ativo.com/calculadoras-de-performance/calculadora-de-imc/" class="btn1" target="_blank">
+                        Calcule seu IMC
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="img-box">
+                    <img src="{% static 'images/checkup.png' %}" alt="">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ol class="carousel-indicators">
+          <li data-target="#customCarousel1" data-slide-to="0" class="active"></li>
+          <li data-target="#customCarousel1" data-slide-to="1"></li>
+          <li data-target="#customCarousel1" data-slide-to="2"></li>
+        </ol>
+      </div>
+
+    </section>
+    <!-- end slider section -->
+  </div>
+
+{% endblock %} 
