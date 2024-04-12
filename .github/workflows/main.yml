@@ -1,12 +1,11 @@
 name: Django GitHub Actions
 run-name: Deploy by @${{ github.actor }}
 on: 
-    pull_request:
+    push:
         branches: 
           - main
 jobs:
     build:
-        if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
         runs-on: ubuntu-latest
         strategy:
             max-parallel: 1
@@ -30,7 +29,6 @@ jobs:
               run: |
                 python manage.py test
     deploy:
-      if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
       runs-on: ubuntu-latest
       name: Deploy da aplicação Django no Heroku
       steps:
