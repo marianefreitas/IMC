@@ -3,7 +3,7 @@
 max-line-length = 200
 
 # Ignora alguns erros específicos
-ignore = E203,W503
+ignore = 
 
 # Define diretórios ou arquivos a serem excluídos da análise
 exclude =
@@ -15,7 +15,7 @@ exclude =
 # Especifica as mensagens de erros a serem ignoradas por linha
 per-file-ignores =
     # Ignora o erro E402 para este arquivo
-    script.py:E402
+    # script.py:E402
 
 # Lista de plugins a serem usados
 plugins =
