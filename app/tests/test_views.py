@@ -22,4 +22,4 @@ class TestViews(TestCase):
     def test_logout(self):
         response = self.client.get(reverse('logout'))
 
-        self.assertAlmostEqual(response.status_code, 302) 
+        self.assertAlmostEqual(response.status_code, 302)

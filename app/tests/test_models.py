@@ -1,6 +1,7 @@
 from django.test import TestCase
 from app.models import Turma
 
+
 class TestModels(TestCase):
 
     def setUp(self):

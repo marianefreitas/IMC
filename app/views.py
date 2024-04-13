@@ -22,7 +22,7 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    messages.success(request, ("Você foi desloado com sucesso"))
+    # messages.success(request, ("Você foi desloado com sucesso"))
     return redirect('home')
 
 
