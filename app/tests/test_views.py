@@ -1,5 +1,6 @@
 from django.test import TestCase, Client
 from django.urls import reverse
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
 
 class TestViews(TestCase):
