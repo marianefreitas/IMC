@@ -1,9 +1,9 @@
-from django.test import TestCase, Client
+from django.test import Client
 from django.urls import reverse
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
 
-class TestViews(TestCase):
+class TestViews(StaticLiveServerTestCase):
 
     def setUp(self):
         self.client = Client()
