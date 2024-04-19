@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import *
+from .models import Aluno, Professor, Categoria, Turma, HistoricoMedicoes, ProfessorTurma
 
 admin.site.register(Aluno)
 admin.site.register(Professor)
