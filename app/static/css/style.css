@@ -927,4 +927,157 @@ a:focus {
 .footer_section p a {
   color: inherit;
 }
-/*# sourceMappingURL=style.css.map */
+
+
+.content-wrapper {
+  margin-left: 240px;
+  margin-top: 65px;
+  transition: .5s;
+}
+
+.content-wrapper.hide{
+  margin-left: 0;
+}
+
+
+.top-chart-overview{
+  border-radius: 5px;
+  padding-top: 15px;
+  box-shadow: -2px 3px 13px 0px #ddd6;
+}
+
+.last-month{
+  line-height: 20px;
+  text-align: center;
+    
+}
+
+.last-month h5{
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.last-month p{
+  font-size: 12px;
+  color: #777;
+}
+
+
+
+.students{
+  margin:12px 0;
+
+}
+
+.students h2{
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.chart-nav{
+ color: var(--second-color);
+ padding: 0px 15px;
+ border-radius: 0; 
+}
+
+.chart-nav.active {
+  background: #fff !important;
+  color: var(--main-color) !important;
+  border-bottom: 2px solid var(--main-color) ;
+  border-radius: 0;
+}
+
+.chart-nav:hover{
+  color: var(--main-color);
+}
+
+.chart-header-tab{
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 15px;
+}
+
+.widget-content {
+  padding-right: 15px;
+  padding-left: 15px;
+  transition: .3s;
+}
+
+.bdr-cls{
+  border-right: 1px solid #ddd6;
+}
+
+.wre-sec{
+  overflow: hidden;
+  border-top: 1px solid #ddd6 ;
+}
+
+.students-view{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.student-icon{
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  padding: 3px;
+  background: #ddd;
+  line-height: 20px;
+  font-size: 16px;
+  color: var(--white-color);
+}
+
+.low-weight{
+  background: #62a0d3;
+}
+
+.normal-weight{
+  background: var(--main-color);
+}
+
+.over-weight{
+  background: #f5a327;
+}
+
+.obesity{
+  background: #d83030;
+}
+
+.donnut-title{
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+  padding-left: 15px;
+  margin-bottom: 8%;
+}
+
+div#chart-2{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.donnut-card{
+  height: 100%;
+  padding-top: 15%;
+}
+
+.register-ac-title{
+  border-bottom: 2px solid var(--main-color) ;
+  border-radius: 0;
+  max-width: 200px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  margin-left: 15px;
+  margin-bottom: 3%;
+  margin-top: 3%;
+  padding-bottom: 5px;
+}
