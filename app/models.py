@@ -27,15 +27,23 @@ class Professor(models.Model):
     email = models.CharField('E-mail', max_length=100)
     senha = models.CharField('Senha', max_length=8)
 
+    def __str__(self):
+        return f'{self.nome} {self.sobrenome}'
+
 
 class ProfessorTurma(models.Model):
     id_professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
     id_turma = models.ForeignKey(Turma, on_delete=models.CASCADE, default=1)
 
+    def __str__(self):
+        return f'{self.id_professor} {self.id_turma}'
+
 
 class Categoria(models.Model):
     categoria_nome = models.CharField('Categoria', max_length=20)
 
+    def __str__(self):
+        return f'{self.categoria_nome}'
 
 class HistoricoMedicoes(models.Model):
     id_aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
