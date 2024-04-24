@@ -45,6 +45,7 @@ class Categoria(models.Model):
     def __str__(self):
         return f'{self.categoria_nome}'
 
+
 class HistoricoMedicoes(models.Model):
     id_aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
     altura = models.FloatField('Altura', max_length=100)
