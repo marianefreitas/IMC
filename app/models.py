@@ -30,7 +30,7 @@ class Professor(models.Model):
 
 class ProfessorTurma(models.Model):
     id_professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
-    id_turma = models.ForeignKey(Turma, on_delete=models.CASCADE)
+    id_turma = models.ForeignKey(Turma, on_delete=models.CASCADE, default=1)
 
 
 class Categoria(models.Model):
