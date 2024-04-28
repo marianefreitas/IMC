@@ -104,6 +104,10 @@ else:
             'HOST': 'ec2-52-54-200-216.compute-1.amazonaws.com',
             'PORT': '5432',
         }
+        # 'default': {
+        #         'ENGINE': 'django.db.backends.sqlite3',
+        #         'NAME': BASE_DIR / 'db.sqlite3',
+        #     }
     }
 
 
