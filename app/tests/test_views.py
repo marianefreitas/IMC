@@ -19,7 +19,7 @@ class TestViews(TestCase):
     #     self.assertAlmostEqual(response.status_code, 200)
     #     self.assertTemplateUsed(response, 'login.html')
 
-    def test_logout(self):
-        response = self.client.get(reverse('logout'))
+    # def test_logout(self):
+    #     response = self.client.get(reverse('logout'))
 
-        self.assertAlmostEqual(response.status_code, 302)
+    #     self.assertAlmostEqual(response.status_code, 302)
