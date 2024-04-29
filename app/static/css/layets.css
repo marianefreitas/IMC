@@ -4,7 +4,7 @@
     font-size: 20px;
     font-weight: 500;
     padding: 10px 0;
-    background: var(--main-grident);
+    background: var(--main-color);
     color: var(--white-color);
     
 }
@@ -23,7 +23,7 @@ header.header{
 }
 
 .header-container{
-    background: #FFF;
+    background: var(--main-color);
     box-shadow: -1px 4px 20px 1px #f1f1f185;
 }
 
@@ -61,7 +61,7 @@ nav.animated{
 .left-menu::-webkit-scrollbar{
     width: 6px;
     border-radius: 5px ;
-    background: var(--main-grident);
+    background: var(--main-color);
 }
 
 

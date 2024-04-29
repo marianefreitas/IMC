@@ -1,6 +1,14 @@
 from django.db import models
 from django import utils
+from django.contrib.auth.models import User
 
+
+class CustomUser(User):
+
+    class Meta:
+        proxy = True
+        app_label = 'auth'
+        verbose_name = 'Professore'
 
 class Turma(models.Model):
     codigoTurma = models.CharField('Codigo Turma', max_length=8)
@@ -29,6 +37,8 @@ class Professor(models.Model):
 
     def __str__(self):
         return f'{self.nome} {self.sobrenome}'
+    
+    
 
 
 class ProfessorTurma(models.Model):
@@ -37,6 +47,9 @@ class ProfessorTurma(models.Model):
 
     def __str__(self):
         return f'{self.id_professor} {self.id_turma}'
+    
+    class Meta:
+        verbose_name = 'Relação Professor / Turma'
 
 
 class Categoria(models.Model):
@@ -53,3 +66,6 @@ class HistoricoMedicoes(models.Model):
     imc = models.FloatField('IMC')
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     timeStamp = models.DateField('TS', default=utils.timezone.now)
+
+    class Meta:
+        verbose_name = 'Historico de Mediçõe'

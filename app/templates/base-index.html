@@ -22,6 +22,58 @@
 <body>
     
     <main>
+        <div class="main-wrapper">
+            <!-- --NAVBAR-- -->
+            <div class="header-container fixed-top">
+                <header  class="header navbar navbar-expand-sm expand-header shadow p-0">
+                    <div class="header-left d-flex ">
+                        <div class="logo">
+                            IMC Express
+                        </div>
+                        <a href="#" class="sidebarCollapse text-light fs-2" id="toggleSidebar" data-placement="bottom">
+                            <span class="bi bi-list"></span>
+                        </a>     
+                    </div>
+                   
+                </header>
+            </div>
+            <!-- --NAVBAR-- -->
+        
+            <!-- --SIDEBAR-- -->
+            <div class="left-menu">
+                <div class="menubar-content">
+                    <nav class="animated bounceInDown">
+                        <ul id="sidebar">
+                            <li class="active">
+                                <a href="#"><i class="bi bi-house-fill"></i>Dashboard</a>
+                            </li>
+        
+                            <li>
+                                <a href="#"><i class="bi bi-journal-bookmark-fill"></i>Adicionar Registro</a>
+                            </li>
+        
+                            <li>
+                                <a href="#"><i class="bi bi-mortarboard-fill"></i>Turmas</a>
+                            </li>
+        
+                            <li>
+                                <a href="#"><i class="bi bi-question-circle"></i>Ajuda</a>
+                            </li>
+        
+                            <li>
+                                <a href="#"><i class="bi bi-box-arrow-in-right"></i>Sair</a>
+                            </li>
+        
+                            
+        
+        
+        
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        
+            <!-- --SIDEBAR-- -->
         {% block 'conteudo' %} {%endblock%}
     </main>
 
