@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .models import Professor, Turma, Aluno, HistoricoMedicoes, Categoria
+from .service import calcular_imc_percentil
 
 
 def login_user(request):
@@ -76,18 +77,30 @@ def adicionar_medidas(request):
     if request.user.is_authenticated:
         if request.method == "POST":
             aluno_id = request.POST.get('aluno_id')
-            altura = float(request.POST.get('altura'))
-            peso = float(request.POST.get('peso'))
-            imc = peso / (altura ** 2)
+            altura = float(request.POST.get('altura', 0))
+            peso = float(request.POST.get('peso', 0))
+
+            # Validações básicas - Não estou conseguindo fazer as mensagens aparecerem
+            # if not (1.0 <= altura <= 2.5):
+            #     print('Entrei no IF da validação')
+
+            #     messages.error(request, ('Altura fora do intervalo permitido.'))
+            #     return redirect("adicionar_medidas")
+
+            # if not (10 <= peso <= 200):
+            #     messages.error(request, 'Peso fora do intervalo permitido.')
+            #     return redirect("adicionar_medidas")
 
             aluno = Aluno.objects.get(id=aluno_id)
+
+            imc, categoria = calcular_imc_percentil(aluno, peso, altura)
 
             nova_medicao = HistoricoMedicoes(
                 id_aluno=aluno,
                 altura=altura,
                 peso=peso,
                 imc=imc,
-                categoria=Categoria.objects.get(id=1)
+                categoria=Categoria.objects.get(id=categoria)
             )
 
             nova_medicao.save()
