@@ -4,32 +4,47 @@
 {%block title %}Turmas {% endblock %}
 {% block content %}
 
+<section class="bg-light p-3 p-md-4 p-xl-5">
 
-    <h1 style="color: aliceblue;" >Escolha uma Turma</h1>
-    <form method="POST">
-        {% csrf_token %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+            <strong>{{ message }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %} 
+    {% endif %}
 
-        
+    <div class="container">
 
-        
-        
-        <select class="form-select" name="turma" id="turma" onchange="this.form.submit()">
-            <option value="" disabled {% if not turma_selecionada %} selected {% endif %}>Selecione a turma</option>
-            {% for turma in turmas %}
-                <option value="{{ turma.id_turma.id }}" {% if turma_selecionada.id == turma.id_turma.id %} selected {% endif %}>
-                    {{ turma.id_turma.descricao }}
-                </option>
-            {% endfor %}
-        </select>
+        <!-- Select de Turmas -->
 
-    </form>
+        <h1 style="color: #212529;">Escolha uma Turma</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+    
+            <select class="form-select" name="turma" id="turma" onchange="this.form.submit()">
+                <option value="" disabled {% if not turma_selecionada %} selected {% endif %}>Selecione a turma</option>
+                {% for turma in turmas %}
+                    <option value="{{ turma.id_turma.id }}" {% if turma_selecionada.id == turma.id_turma.id %} selected {% endif %}>
+                        {{ turma.id_turma.descricao }}
+                    </option>
+                {% endfor %}
+            </select>
+    
+        </form>
+
+        <!-- Fim Select de Turmas -->
 
     <br>
 
 
     {%  if alunos %}
 
-    <h2 style="color: aliceblue;">Alunos do {{ turma_selecionada.descricao }}</h2>
+    <h2 style="color: #212529;">Alunos do {{ turma_selecionada.descricao }}</h2>
 
     <br>
 
@@ -114,8 +129,13 @@
 
     </table>
 
-        
     {% endif %}
+
+
+    </div>
+
+</section>
+
 </div>
 
 
