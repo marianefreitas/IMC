@@ -95,8 +95,8 @@ ul#sidebar li a{
 }
 
 ul#sidebar li a:hover{
-    color: var(--main-color);
-    background: #f7f7f7;
+    color: #f7f7f7;
+    background: rgba(27, 20, 108, 0.527);
 }
 
 li.active{
@@ -104,8 +104,8 @@ li.active{
 }
 
 li.active a{
-    color: var(--main-color) !important;
-    background: #f7f7f7;
+    color: #f7f7f7 !important;
+    background: rgba(27, 20, 108, 0.527);
 }
 
 ul#sidebar li a

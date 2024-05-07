@@ -14,6 +14,7 @@ class Turma(models.Model):
     codigoTurma = models.CharField('Codigo Turma', max_length=8)
     dataInicio = models.DateField('Data Inicio')
     descricao = models.CharField('Descricao', max_length=8)
+    ano = models.CharField('Ano',max_length=2)
 
     def __str__(self):
         return f'{self.descricao}'
@@ -59,6 +60,7 @@ class ProfessorTurma(models.Model):
         verbose_name = 'Relação Professor / Turma'
 
 
+
 class Categoria(models.Model):
     categoria_nome = models.CharField('Categoria', max_length=20)
 
@@ -73,6 +75,7 @@ class HistoricoMedicoes(models.Model):
     imc = models.FloatField('IMC')
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     timeStamp = models.DateField('TS', default=utils.timezone.now)
+    id_turma = models.ForeignKey(Turma, on_delete=models.SET_NULL, null=True)
 
     class Meta:
         verbose_name = 'Historico de Mediçõe'

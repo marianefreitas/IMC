@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .models import HistoricoMedicoes, Categoria, Aluno, Turma
-from django.db.models import Count, Q
+from .forms import FiltroForm
+from django.db.models import Count, Q,  F, Value, Func
+from django.db.models.functions import Concat
 from django.http import JsonResponse
 
 
@@ -35,36 +37,181 @@ def home(request):
 
 def dashboard(request):
     if request.user.is_authenticated:
-        historico = HistoricoMedicoes.objects.all()
-        total = historico.count()
+        filtro = FiltroForm()
+
+        historico = HistoricoMedicoes.objects.select_related("categoria","id_turma","id_aluno").values("timeStamp","altura","peso","imc","categoria__categoria_nome","id_turma__descricao").annotate(
+            fullName = Concat('id_aluno__nome', Value(' '),'id_aluno__sobrenome'))
+        total = HistoricoMedicoes.objects.all().count()
         imc_outlier = HistoricoMedicoes.objects.select_related("categoria").filter(~Q(categoria = 2)).count()
         imc_padrao = HistoricoMedicoes.objects.select_related("categoria").filter(categoria =2).count()
+        data_donnut = [imc_padrao,imc_outlier]
 
-        print(imc_outlier)
-        print(imc_padrao)
-        return render(request, 'dashboard.html', {'historico':historico,'total':total,'imc_padrao':imc_padrao,'imc_outlier':imc_outlier})
-    else:
-        messages.warning(request, ('Faça seu login!'))
-        return render(request, 'dashboard.html', {})
+        ##################################################
+        #                  CONFIG FILTRO                #
+        
+        choices_nome = [(i['id_aluno'], i['id_aluno__nome'].title() + ' ' + i['id_aluno__sobrenome'].title()) for i in HistoricoMedicoes.objects.select_related("id_aluno").values("id_aluno","id_aluno__nome","id_aluno__sobrenome").distinct().order_by("id_aluno__nome")]
+                        
+        choices_nome.insert(0,(0,"Todos"))
+        filtro.fields['nome'].choices = choices_nome
+
+        
+        choices_categoria = [(i.id, i.__str__) for i in Categoria.objects.all()]
+        choices_categoria.insert(0,(0,"Todas"))
+        filtro.fields['categoria'].choices = choices_categoria
+
+
+
+        choices_turma = [(i.id, i.__str__) for i in Turma.objects.all()]
+        choices_turma.insert(0,(0,"Todas"))
+        filtro.fields['turma'].choices = choices_turma
+
+
+        
+        ##################################################
+
+        ##################################################
+        #                  GRAFICO GERAL                 #
+        abaixo_peso = HistoricoMedicoes.objects.select_related("categoria","id_turma").values("id_turma__ano","categoria_id").filter(categoria_id__id = '1').annotate(dcount = Count('categoria_id')).order_by()
+        peso_normal = HistoricoMedicoes.objects.select_related("categoria","id_turma").values("id_turma__ano","categoria_id").filter(categoria_id__id = '2').annotate(dcount = Count('categoria_id')).order_by()
+        sobrepeso = HistoricoMedicoes.objects.select_related("categoria","id_turma").values("id_turma__ano","categoria_id").filter(categoria_id__id = '3').annotate(dcount = Count('categoria_id')).order_by()
+        obesidade = HistoricoMedicoes.objects.select_related("categoria","id_turma").values("id_turma__ano","categoria_id").filter(categoria_id__id = '4').annotate(dcount = Count('categoria_id')).order_by()
+        
+        
+        abaixo_peso = [x["dcount"] for x in abaixo_peso]
+        peso_normal = [x["dcount"] for x in peso_normal]
+        sobrepeso = [x["dcount"] for x in sobrepeso]
+        obesidade = [x["dcount"] for x in obesidade]
+
+        total_ab = sum(abaixo_peso)
+        total_pn = sum(peso_normal)
+        total_sp = sum(sobrepeso)
+        total_obs = sum(obesidade)
+    
+        
+        data_json = {'abaixo_peso':list(abaixo_peso),
+                     'peso_normal':list(peso_normal),
+                     'sobrepeso':list(sobrepeso),
+                     'obesidade':list(obesidade)
+                     
+                     } 
+
+        ##################################################
+
+
+
+        ##################################################
+        #                  GRAFICO FEMININO                #
+
+        abaixo_peso_f = HistoricoMedicoes.objects.select_related("categoria","id_turma","id_aluno").values("id_turma__ano","categoria_id").filter(categoria_id__id = '1',id_aluno_id__sexo='F').annotate(dcount = Count('categoria_id')).order_by()
+        peso_normal_f = HistoricoMedicoes.objects.select_related("categoria","id_turma","id_aluno").values("id_turma__ano","categoria_id").filter(categoria_id__id = '2',id_aluno_id__sexo='F').annotate(dcount = Count('categoria_id')).order_by()
+        sobrepeso_f = HistoricoMedicoes.objects.select_related("categoria","id_turma","id_aluno").values("id_turma__ano","categoria_id").filter(categoria_id__id = '3',id_aluno_id__sexo='F').annotate(dcount = Count('categoria_id')).order_by()
+        obesidade_f = HistoricoMedicoes.objects.select_related("categoria","id_turma","id_aluno").values("id_turma__ano","categoria_id").filter(categoria_id__id = '4',id_aluno_id__sexo='F').annotate(dcount = Count('categoria_id')).order_by()
+        
+        
+        abaixo_peso_f = [x["dcount"] for x in abaixo_peso_f]
+        peso_normal_f = [x["dcount"] for x in peso_normal_f]
+        sobrepeso_f = [x["dcount"] for x in sobrepeso_f]
+        obesidade_f = [x["dcount"] for x in obesidade_f]
+        
+        data_json_f = {'abaixo_peso':list(abaixo_peso_f),
+                     'peso_normal':list(peso_normal_f),
+                     'sobrepeso':list(sobrepeso_f),
+                     'obesidade':list(obesidade_f)
+                     
+                     } 
+        ##################################################
+
+
+        ##################################################
+        #                  GRAFICO MASCULINO             #
+
+        abaixo_peso_m = HistoricoMedicoes.objects.select_related("categoria","id_turma","id_aluno").values("id_turma__ano","categoria_id").filter(categoria_id__id = '1',id_aluno_id__sexo='M').annotate(dcount = Count('categoria_id')).order_by()
+        peso_normal_m = HistoricoMedicoes.objects.select_related("categoria","id_turma","id_aluno").values("id_turma__ano","categoria_id").filter(categoria_id__id = '2',id_aluno_id__sexo='M').annotate(dcount = Count('categoria_id')).order_by()
+        sobrepeso_m = HistoricoMedicoes.objects.select_related("categoria","id_turma","id_aluno").values("id_turma__ano","categoria_id").filter(categoria_id__id = '3',id_aluno_id__sexo='M').annotate(dcount = Count('categoria_id')).order_by()
+        obesidade_m = HistoricoMedicoes.objects.select_related("categoria","id_turma","id_aluno").values("id_turma__ano","categoria_id").filter(categoria_id__id = '4',id_aluno_id__sexo='M').annotate(dcount = Count('categoria_id')).order_by()
+        
+        
+        abaixo_peso_m = [x["dcount"] for x in abaixo_peso_m]
+        peso_normal_m = [x["dcount"] for x in peso_normal_m]
+        sobrepeso_m = [x["dcount"] for x in sobrepeso_m]
+        obesidade_m = [x["dcount"] for x in obesidade_m]
+        
+        data_json_m = {'abaixo_peso':list(abaixo_peso_m),
+                     'peso_normal':list(peso_normal_m),
+                     'sobrepeso':list(sobrepeso_m),
+                     'obesidade':list(obesidade_m)
+                     
+                     } 
+        
+
+        if request.method == "POST":
+            
+            
+            temp_nome = request.POST['nome']
+            temp_categoria = request.POST['categoria']
+            temp_turma = request.POST['turma']
+            temp_order = request.POST['order']
+
+            filtro.fields['nome'].initial = temp_nome
+            filtro.fields['categoria'].initial = temp_categoria
+            filtro.fields['turma'].initial = temp_turma
+            filtro.fields['order'].initial = temp_order
+
+
+            # FILTRA NOME , CATEGORIA E TURMA
+
+            if temp_nome == "0" and temp_categoria == "0" and temp_turma == "0":
+                historico = HistoricoMedicoes.objects.select_related("categoria","id_turma","id_aluno").values("timeStamp","altura","peso","imc","categoria__categoria_nome","id_turma__descricao").annotate(
+                            fullName = Concat('id_aluno__nome', Value(' '),'id_aluno__sobrenome'))
+                
+            elif temp_nome != "0" and temp_categoria == "0" and temp_turma == "0":
+                historico = HistoricoMedicoes.objects.select_related("categoria","id_turma","id_aluno").values("timeStamp","altura","peso","imc","categoria__categoria_nome","id_turma__descricao").filter(id_aluno = temp_nome).annotate(
+                            fullName = Concat('id_aluno__nome', Value(' '),'id_aluno__sobrenome'))
+    
+            elif temp_nome != "0" and temp_categoria != "0" and temp_turma == "0":
+                historico = HistoricoMedicoes.objects.select_related("categoria","id_turma","id_aluno").values("timeStamp","altura","peso","imc","categoria__categoria_nome","id_turma__descricao").filter(id_aluno = temp_nome,categoria = temp_categoria).annotate(
+                            fullName = Concat('id_aluno__nome', Value(' '),'id_aluno__sobrenome'))
+            
+            elif temp_nome != "0" and temp_categoria != "0" and temp_turma != "0":
+                historico = HistoricoMedicoes.objects.select_related("categoria","id_turma","id_aluno").values("timeStamp","altura","peso","imc","categoria__categoria_nome","id_turma__descricao").filter(id_aluno = temp_nome,categoria = temp_categoria, id_turma = temp_turma).annotate(
+                            fullName = Concat('id_aluno__nome', Value(' '),'id_aluno__sobrenome'))
+            
+            elif temp_nome == "0" and temp_categoria != "0" and temp_turma == "0":
+                historico = HistoricoMedicoes.objects.select_related("categoria","id_turma","id_aluno").values("timeStamp","altura","peso","imc","categoria__categoria_nome","id_turma__descricao").filter(categoria = temp_categoria).annotate(
+                            fullName = Concat('id_aluno__nome', Value(' '),'id_aluno__sobrenome'))
+            
+            elif temp_nome == "0" and temp_categoria == "0" and temp_turma != "0":
+                historico = HistoricoMedicoes.objects.select_related("categoria","id_turma","id_aluno").values("timeStamp","altura","peso","imc","categoria__categoria_nome","id_turma__descricao").filter(id_turma = temp_turma).annotate(
+                            fullName = Concat('id_aluno__nome', Value(' '),'id_aluno__sobrenome'))
+            
+            elif temp_nome == "0" and temp_categoria != "0" and temp_turma != "0":
+                historico = HistoricoMedicoes.objects.select_related("categoria","id_turma","id_aluno").values("timeStamp","altura","peso","imc","categoria__categoria_nome","id_turma__descricao").filter(categoria = temp_categoria,id_turma = temp_turma).annotate(
+                            fullName = Concat('id_aluno__nome', Value(' '),'id_aluno__sobrenome'))
+                
+            # ORDENA OS OBJETOS
+            if temp_order == '0':
+                historico = historico.order_by("-timeStamp","-id")
+            elif temp_order == '1':
+                historico = historico.order_by("data_saida",'id')
+            elif temp_order == '2':
+                historico = historico.order_by("fullName")
+            elif temp_order == '3':
+                historico = historico.order_by("-fullName")
+
+
+            
+
     
 
-def graficoImcGeral(request):
-    if request.user.is_authenticated:
-        primeiro = HistoricoMedicoes.objects.select_related("categoria","id_aluno","id_aluno__turmaAtual").filter(id_aluno__turmaAtual__codigoTurma__startswith='1').annotate(dcount=Count('categoria__categoria_nome')).order_by('categoria__categoria_nome')
+
+
         
-        #.values('id_aluno__turmaAtual__descricao')
-        # primeiro = primeiro.select_related("turmaAtual").all()
-        # for p in HistoricoMedicoes.objects.raw("""SELECT COUNT(categoria_nome) FROM app_historicomedicoes 
-        #                                        INNER JOIN app_categoria  ON app_categoria.id = app_historicomedicoes.categoria_id
-        #                                        INNER JOIN app_aluno  ON app_aluno.id = app_historicomedicoes.id_aluno_id
-        #                                        INNER JOIN app_turma  ON app_turma.id =app_aluno.turmaAtual_id
-        #                                        WHERE app_turma.codigoTurma LIKE '1%'
-        #                                        GROUP BY app_categoria.categoria_nome
-        #                                        ORDER BY app_categoria.id"""):
-        #     print(p)
-        print(primeiro)
-        data_json = {'teste':list(primeiro.values())}  
-        return JsonResponse(data_json)
+        return render(request, 'dashboard.html', {'historico':historico,'total':total,'imc_padrao':imc_padrao,
+                                                  'imc_outlier':imc_outlier,'data_json':data_json,'data_json_f':data_json_f,
+                                                  'data_json_m':data_json_m,'data_donnut':data_donnut,'filtro':filtro,
+                                                  'total_ab':total_ab,'total_pn':total_pn,'total_sp':total_sp,'total_obs':total_obs})
     else:
-            messages.warning(request, ('Usuário não encontrado!'))
-            return render(request, 'login.html', {})
+        messages.warning(request, ('Faça seu login!'))
+        return redirect('login')
+    
+
