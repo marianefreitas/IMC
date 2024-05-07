@@ -96,18 +96,18 @@ if 'test' in sys.argv:
     }
 else:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'ddukr6dggksq0c',
-            'USER': 'luvmxrnjejbvfy',
-            'PASSWORD': 'ef64aaf70427e7b8c5066c0d4ad94ef23f46d94cb69ef73b08bb0e8c386ffade',
-            'HOST': 'ec2-52-54-200-216.compute-1.amazonaws.com',
-            'PORT': '5432',
-        }
         # 'default': {
-        #     'ENGINE': 'django.db.backends.sqlite3',
-        #     'NAME': BASE_DIR / 'db.sqlite3',
+        #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        #     'NAME': 'ddukr6dggksq0c',
+        #     'USER': 'luvmxrnjejbvfy',
+        #     'PASSWORD': 'ef64aaf70427e7b8c5066c0d4ad94ef23f46d94cb69ef73b08bb0e8c386ffade',
+        #     'HOST': 'ec2-52-54-200-216.compute-1.amazonaws.com',
+        #     'PORT': '5432',
         # }
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
 
 

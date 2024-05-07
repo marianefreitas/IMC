@@ -42,7 +42,7 @@ def dashboard(request):
         filtro = FiltroForm()
 
         historico = HistoricoMedicoes.objects.select_related("categoria","id_turma","id_aluno").values("timeStamp","altura","peso","imc","categoria__categoria_nome","id_turma__descricao").annotate(
-            fullName = Concat('id_aluno__nome', Value(' '),'id_aluno__sobrenome'))
+            fullName = Concat('id_aluno__nome', Value(' '),'id_aluno__sobrenome')).order_by("-timeStamp","-id")
         total = HistoricoMedicoes.objects.all().count()
         imc_outlier = HistoricoMedicoes.objects.select_related("categoria").filter(~Q(categoria = 2)).count()
         imc_padrao = HistoricoMedicoes.objects.select_related("categoria").filter(categoria =2).count()
@@ -194,7 +194,7 @@ def dashboard(request):
             if temp_order == '0':
                 historico = historico.order_by("-timeStamp","-id")
             elif temp_order == '1':
-                historico = historico.order_by("data_saida",'id')
+                historico = historico.order_by("timeStamp",'id')
             elif temp_order == '2':
                 historico = historico.order_by("fullName")
             elif temp_order == '3':
@@ -257,6 +257,7 @@ def adicionar_medidas(request):
             aluno_id = request.POST.get('aluno_id')
             altura = float(request.POST.get('altura', 0))
             peso = float(request.POST.get('peso', 0))
+            turma_id = request.POST.get('turma_id')
 
             # Validações básicas - Não estou conseguindo fazer as mensagens aparecerem
             # if not (1.0 <= altura <= 2.5):
@@ -278,6 +279,7 @@ def adicionar_medidas(request):
                     altura=altura,
                     peso=peso,
                     imc=imc,
+                    id_turma = Turma.objects.get(id= turma_id),
                     categoria=Categoria.objects.get(id=categoria)
                 )
 

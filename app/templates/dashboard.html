@@ -6,33 +6,30 @@
 
 
 {% block 'head' %} <link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.min.css"> {%endblock%}
-    
 
 
+{% block 'sidebar' %} 
 
-{% block 'sidebar' %}
-<li>
-  <a href="#"><i class="bi bi-journal-bookmark-fill"></i>Adicionar Registro</a>
+<ul id="sidebar">
+  <li>
+    <a href="{%  url 'home' %}"><i class="bi bi-house-fill"></i>Home</a>
 </li>
 
-<li class="active">
-  <a href="#"><i class="bi bi-house-fill"></i>Dashboard</a>
-</li>
+  <li>
+    <a href="{%  url 'turmas' %}"><i class="bi bi-mortarboard-fill"></i>Turmas</a>
+  </li>
 
+  <li class="active">
+    <a href="#"><i class="bi bi-speedometer2"></i>Dashboard</a>
+  </li>
 
-<li>
-  <a href="#"><i class="bi bi-mortarboard-fill"></i>Turmas</a>
-</li>
-
-<li>
-  <a href="#"><i class="bi bi-question-circle"></i>Ajuda</a>
-</li>
-
-<li>
-  <a href="{%  url 'logout' %}"><i class="bi bi-box-arrow-in-right"></i>Sair</a>
-</li>
+  <li>
+    <a href="{%  url 'logout' %}"><i class="bi bi-box-arrow-in-right"></i>Sair</a>
+  </li>
+</ul>
 
 {%endblock%}
+
 
 
 {% block 'conteudo' %} 

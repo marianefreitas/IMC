@@ -1,5 +1,6 @@
 from datetime import date
 from .models import Categoria
+from datetime import datetime
 
 PERCENTIS_IMC = {
     'M': {
@@ -148,13 +149,18 @@ PERCENTIS_IMC = {
 
 
 def calcular_imc_percentil(aluno, peso, altura):
+    # if aluno.dataNascimento is datetime:
     idade = date.today().year - aluno.dataNascimento.year
-    print(f' idade  ==> {aluno.dataNascimento.year}')
-    print(f' idade calculada ==> {idade}')
+    # else:
+    #     dataNsc = datetime.strptime(aluno.dataNascimento, '%d/%m/%y %H:%M:%S')
+    #     idade = date.today().year - dataNsc
+        
+    # print(f' idade  ==> {aluno.dataNascimento.year}')
+    # print(f' idade calculada ==> {idade}')
     sexo = aluno.sexo
-    print(f'sexo aluno ===> {aluno.sexo}')
+    # print(f'sexo aluno ===> {aluno.sexo}')
     imc = peso / (altura ** 2)
-    print(f' IMC ===> {imc}')
+    # print(f' IMC ===> {imc}')
     imc_perc_50 = PERCENTIS_IMC[sexo][str(idade)]
 
     # Calcule a % de adequação do IMC
@@ -162,17 +168,17 @@ def calcular_imc_percentil(aluno, peso, altura):
 
     # Determine a categoria
     if adequacao > 160:
-        categoria_nome = "Obesidade Alto Risco"
+        categoria_nome = "Obesidade"
     elif adequacao > 139.99:
-        categoria_nome = "Obesidade Grau 3"
+        categoria_nome = "Obesidade"
     elif adequacao > 129.99:
-        categoria_nome = "Obesidade Grau 2"
+        categoria_nome = "Obesidade"
     elif adequacao > 110.99:
-        categoria_nome = "Obesidade Grau 1"
+        categoria_nome = "Sobrepeso"
     elif adequacao < 79.99:
         categoria_nome = "Abaixo do peso"
     else:
-        categoria_nome = "Peso Adequado"
+        categoria_nome = "Peso Normal"
 
     categoria = Categoria.objects.get(categoria_nome=categoria_nome)
 
