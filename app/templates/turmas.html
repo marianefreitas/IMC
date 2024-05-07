@@ -48,8 +48,16 @@
 
     <br>
 
+        <div class="mb-3">
+            <label class="visually-hidden" for="searchInput">Nome do aluno...</label>
+            <div class="input-group">
+            <div class="input-group-text">Qual aluno você procura?</div>
+            <input type="text" class="form-control" id="searchInput" onkeyup="filterNames()" placeholder="Nome do aluno...">
+            </div>
+        </div>
 
-    <table class="table">
+
+    <table class="table" id="alunosTable">
 
     
 
@@ -160,6 +168,28 @@
             }
         });
     });
+
+    function filterNames() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("alunosTable");
+    tr = table.getElementsByTagName("tr");
+
+    // Loop por todas as linhas da tabela, e esconde aquelas que não correspondem à busca
+    for (i = 0; i < tr.length; i++) {
+        // Altere o índice de 'td' conforme necessário. Por exemplo, '0' para o primeiro nome, '1' para o sobrenome
+        td = tr[i].getElementsByTagName("td")[0]; // Assume que você está buscando pelo nome na primeira coluna
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }       
+    }
+}
     </script>
 
 {%endblock%}
