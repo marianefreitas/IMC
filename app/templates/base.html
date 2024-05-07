@@ -62,17 +62,28 @@
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav  ">
+
               <li class="nav-item active">
                 <a class="nav-link" href="{%  url 'home' %}">Home <span class="sr-only">(current)</span></a>
               </li>
 
               {% if user.is_authenticated %}
-              <li class="nav-item">
-                <a class="nav-link" href="{%  url 'logout' %}"> <i class="fa fa-user" aria-hidden="true"></i> Logout</a>
+
+              <li class="nav-item active">
+                <a class="nav-link" href="{%  url 'dashboard' %}"><i class="fa fa-user" aria-hidden="true"></i>Dashboard</a>
               </li>
+
+              <li class="nav-item active">
+                <a class="nav-link" href="{%  url 'turmas' %}"><i class="fa fa-user" aria-hidden="true"></i>Área do Professor</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="{%  url 'logout' %}"> <i class="fa fa-user" aria-hidden="true"></i>Logout</a>
+              </li>
+
               {% else %}
               <li class="nav-item">
-                <a class="nav-link" href="{%  url 'login' %}"> <i class="fa fa-user" aria-hidden="true"></i> Login</a>
+                <a class="nav-link" href="{%  url 'login' %}"> <i class="fa fa-user" aria-hidden="true"></i>Login</a>
               </li>
               {% endif %}  
 
@@ -99,6 +110,20 @@
   </section>
   <!-- footer section -->
 
+  <!-- VLibras  -->
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+    <div class="vw-plugin-top-wrapper"></div>
+    </div>
+</div>
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
+
+<!-- TERMINOVLibras  -->
+
   <!-- jQery -->
   <script type="text/javascript" src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
   <!-- popper js -->
@@ -111,10 +136,6 @@
   </script>
   <!-- custom js -->
   <script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
-  <!-- Google Map -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
-  </script>
-  <!-- End Google Map -->
 
   <script>
     $(document).ready(function() {
@@ -126,6 +147,7 @@
         }, 3000); // <-- time in milliseconds, 1000 =  1 sec
     });
 </script>
+{% block 'scripts' %} {%endblock%}
 </body>
 
 </html>
