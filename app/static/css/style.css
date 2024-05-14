@@ -988,7 +988,8 @@ a:focus {
 }
 
 .chart-nav:hover{
-  color: var(--main-color);
+  color: #f7f7f7;
+  background: rgba(27, 20, 108, 0.527);
 }
 
 .chart-header-tab{
@@ -1039,7 +1040,7 @@ a:focus {
 }
 
 .normal-weight{
-  background: var(--main-color);
+  background: #187818;
 }
 
 .over-weight{
@@ -1070,14 +1071,31 @@ div#chart-2{
 }
 
 .register-ac-title{
-  border-bottom: 2px solid var(--main-color) ;
+  border-bottom: 3px solid var(--main-color) ;
   border-radius: 0;
-  max-width: 200px;
+  max-width: 300px;
   text-align: center;
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 600;
   margin-left: 15px;
   margin-bottom: 3%;
   margin-top: 3%;
   padding-bottom: 5px;
+}
+
+th.titulo{
+  background-color: var(--main-color);
+  color: var(--white-color);
+}
+
+
+
+section#tabelaHistorico div.row{
+  --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(var(--bs-gutter-y)* -1);
+    margin-right: calc(var(--bs-gutter-x)* .5);
+    margin-left: calc(var(--bs-gutter-x)* .5);
 }

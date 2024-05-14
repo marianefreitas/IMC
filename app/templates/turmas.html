@@ -1,10 +1,14 @@
-{% extends 'base.html' %}
+{% extends 'base-index.html' %}
 {% load static %}
 {% load django_bootstrap5 %}
 {%block title %}Turmas {% endblock %}
-{% block content %}
+{% block 'conteudo' %}
 
-<section class="bg-light p-3 p-md-4 p-xl-5">
+
+<div class="content-wrapper">
+    <section class="dashboard-top-sec">
+        <div class="container-fluid">
+<section class="bg-light p-3 p-md-4 p-xl-5 mt-2">
 
     {% if messages %}
         {% for message in messages %}
@@ -17,7 +21,7 @@
         {% endfor %} 
     {% endif %}
 
-    <div class="container">
+    <div class="container mt-2">
 
         <!-- Select de Turmas -->
 
@@ -73,7 +77,7 @@
             <tr>
                 <td> {{ aluno }}</td>
                 <td>
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal{{ aluno.id }}">
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modal{{ aluno.id }}">
                         Adicionar
                     </button>
                 </td>
@@ -107,6 +111,7 @@
                 {% csrf_token %}
                 <div class="modal-body">
                     <input type="hidden" name="aluno_id" value="{{ aluno.id }}">
+                    <input type="hidden" name="turma_id" id="turma_id" value="{{ turma_selecionada.id }}">
                     <div class="form-group">
                         <label for="altura">Altura (em metros):</label>
                         <input type="number" min="0.9" max="2.5" step="0.01" class="form-control" name="altura" required>
@@ -141,6 +146,11 @@
 
 
     </div>
+
+</section>
+
+</div>
+</div>
 
 </section>
 
@@ -191,5 +201,30 @@
     }
 }
     </script>
+
+{%endblock%}
+
+
+{% block 'sidebar' %} 
+
+
+
+<ul id="sidebar">
+    <li>
+        <a href="{%  url 'home' %}"><i class="bi bi-house-fill"></i>Home</a>
+    </li>
+
+  <li class="active">
+    <a href="#"><i class="bi bi-mortarboard-fill"></i>Turmas</a>
+  </li>
+
+  <li>
+    <a href="{%  url 'dashboard' %}"><i class="bi bi-speedometer2"></i>Dashboard</a>
+  </li>
+
+  <li>
+    <a href="{%  url 'logout' %}"><i class="bi bi-box-arrow-in-right"></i>Sair</a>
+  </li>
+</ul>
 
 {%endblock%}

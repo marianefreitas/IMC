@@ -8,7 +8,7 @@
 :root{
     /* ======== CORES ======== */
     --header-height:3rem;
-    --main-color:#187818;
+    --main-color:rgb(28,20,108);
     --second-color:rgb(7,3,45);
     --main-grident:linear-gradient(to right top, #05070b, #101114, #18191a, #1f1f20, #262627);
     --dark-bg: #383848;
