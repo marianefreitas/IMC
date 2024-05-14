@@ -105,9 +105,17 @@ else:
         #     'PORT': '5432',
         # }
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'dficcrtdd7iie1',
+            'USER': 'u92p9rs5m3jo2c',
+            'PASSWORD': 'pe6dc6543d26b81b02f687d6d27f33e6769b6c2985571bb2f670a4ec4b917de01',
+            'HOST': 'cb5ajfjosdpmil.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com',
+            'PORT': '5432',
         }
+        # 'default': {
+        #     'ENGINE': 'django.db.backends.sqlite3',
+        #     'NAME': BASE_DIR / 'db.sqlite3',
+        # }
     }
 
 

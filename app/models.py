@@ -1,19 +1,13 @@
 from django.db import models
-from django import utils
-from django.contrib.auth.models import User
+from django.utils import timezone
+from datetime import date
 
 
-class CustomUser(User):
-
-    class Meta:
-        proxy = True
-        app_label = 'auth'
-        verbose_name = 'Professore'
 
 class Turma(models.Model):
-    codigoTurma = models.CharField('Codigo Turma', max_length=8)
-    dataInicio = models.DateField('Data Inicio')
-    descricao = models.CharField('Descricao', max_length=8)
+    codigoTurma = models.CharField('Codigo Turma', max_length=30)
+    dataInicio = models.DateField('Data Inicio', default=date.today())
+    descricao = models.CharField('Descricao', max_length=100)
     ano = models.CharField('Ano',max_length=2)
 
     def __str__(self):
@@ -28,7 +22,7 @@ class Aluno(models.Model):
     sobrenome = models.CharField('Sobrenome', max_length=100)
     sexo = models.CharField('Sexo', max_length=1)
     dataNascimento = models.DateField('Data Nascimento')
-    ra = models.CharField('RA', max_length=8)
+    ra = models.CharField('RA', max_length=100)
     turmaAtual = models.ForeignKey(Turma, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -38,9 +32,9 @@ class Aluno(models.Model):
 class Professor(models.Model):
     nome = models.CharField('Nome', max_length=100)
     sobrenome = models.CharField('Sobrenome', max_length=100)
-    numeroRegistro = models.CharField('Numero registro', max_length=8)
+    numeroRegistro = models.CharField('Numero registro', max_length=100)
     email = models.CharField('E-mail', max_length=100)
-    senha = models.CharField('Senha', max_length=8)
+    senha = models.CharField('Senha', max_length=100)
     username = models.CharField('Nome Usuario', max_length=30, default="null")
 
     def __str__(self):
@@ -74,7 +68,7 @@ class HistoricoMedicoes(models.Model):
     peso = models.FloatField('Peso')
     imc = models.FloatField('IMC')
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
-    timeStamp = models.DateField('TS', default=utils.timezone.now)
+    timeStamp = models.DateField('TS', default=date.today())
     id_turma = models.ForeignKey(Turma, on_delete=models.SET_NULL, null=True)
 
     class Meta:

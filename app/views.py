@@ -1,13 +1,16 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .models import Professor, Turma, Aluno, HistoricoMedicoes, Categoria
+from .models import Professor, Turma, Aluno, HistoricoMedicoes, Categoria, ProfessorTurma
 from .service import calcular_imc_percentil
 from django.db import IntegrityError, DatabaseError
 from .forms import FiltroForm
 from django.db.models import Count, Q,  F, Value, Func
 from django.db.models.functions import Concat
 from django.http import JsonResponse
+##########################################################################
+
+##########################################################################
 
 
 def login_user(request):
@@ -297,5 +300,8 @@ def adicionar_medidas(request):
     else:
         messages.warning(request, ('Faça seu login!'))
         return redirect('login')
+    
+
+
     
 

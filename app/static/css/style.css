@@ -1088,11 +1088,7 @@ th.titulo{
   color: var(--white-color);
 }
 
-.filtro-pos{
-  padding-right: 0;
-  padding-left: 0;
-  
-}
+
 
 section#tabelaHistorico div.row{
   --bs-gutter-x: 1.5rem;

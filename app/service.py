@@ -151,6 +151,8 @@ PERCENTIS_IMC = {
 def calcular_imc_percentil(aluno, peso, altura):
     # if aluno.dataNascimento is datetime:
     idade = date.today().year - aluno.dataNascimento.year
+    if idade < 6:
+        idade = 6
     # else:
     #     dataNsc = datetime.strptime(aluno.dataNascimento, '%d/%m/%y %H:%M:%S')
     #     idade = date.today().year - dataNsc

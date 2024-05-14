@@ -185,14 +185,14 @@
         </section>
 
         <section id="tabelaHistorico">
-            <div class="sm-filters-sec my-5">
+            <div class="my-5">
                 <div class="bg-white mx-2">
                   <p class="register-ac-title">Registros Históricos</p>
                     <div class="row" id="ajustefiltro">
                       <form action="{% url 'dashboard' %}" method="POST" id = 'filtro'>
                         {% csrf_token %}
-                        <div class="input-group">
-                            <div class="col-lg-3 col-md-6 col-sm-3 filtro-pos my-2">
+                        
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 my-2">
                               
                                 
                                         <div class="form-floating">
@@ -208,7 +208,7 @@
                                 
                             </div>
                             
-                            <div class="col-lg-3 col-md-6 col-sm-3 filtro-pos my-2">
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 my-2">
 
                               
                                         <div class="form-floating">
@@ -221,7 +221,7 @@
                             </div>
 
 
-                            <div class="col-lg-3 col-md-6 col-sm-3 filtro-pos my-2">
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 my-2">
                               
                                         <div class="form-floating">
                                             
@@ -233,7 +233,7 @@
                                 
                             </div>
 
-                            <div class="col-lg-3 col-md-6 col-sm-3 filtro-pos my-2">
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 my-2">
                               
                                   
                                       <div class="form-floating">
@@ -243,7 +243,7 @@
                                       </div>
                                   
                               
-                          </div>
+                          
                         </div>
                       </form>
                     </div>
@@ -278,7 +278,7 @@
                                                 <td>{% if i.timeStamp is None %}
                                                     <p>03/05/2024</p>
                                                     {% else %}
-                                                    i.timeStamp
+                                                    {{i.timeStamp}}
                                                     {% endif %}
                                                     </td>
                                                 <td class="text-center">{{i.fullName}}</td>
