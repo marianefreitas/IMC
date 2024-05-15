@@ -1,21 +1,14 @@
 from django.db import models
-from django.utils import timezone
 from datetime import date
-
-
 
 class Turma(models.Model):
     codigoTurma = models.CharField('Codigo Turma', max_length=30)
     dataInicio = models.DateField('Data Inicio', default=date.today())
     descricao = models.CharField('Descricao', max_length=100)
-    ano = models.CharField('Ano',max_length=2)
+    ano = models.CharField('Ano', max_length=2)
 
     def __str__(self):
         return f'{self.descricao}'
-
-    # class Meta:
-    #     verbose_name = 'Turma'
-
 
 class Aluno(models.Model):
     nome = models.CharField('Nome', max_length=100)
@@ -28,7 +21,6 @@ class Aluno(models.Model):
     def __str__(self):
         return f'{self.nome} {self.sobrenome}'
 
-
 class Professor(models.Model):
     nome = models.CharField('Nome', max_length=100)
     sobrenome = models.CharField('Sobrenome', max_length=100)
@@ -40,9 +32,6 @@ class Professor(models.Model):
     def __str__(self):
         return f'{self.nome} {self.sobrenome}'
     
-    
-
-
 class ProfessorTurma(models.Model):
     id_professor = models.ForeignKey(Professor, on_delete=models.CASCADE, related_name='turmas')
     id_turma = models.ForeignKey(Turma, on_delete=models.CASCADE, default=1)
@@ -53,14 +42,11 @@ class ProfessorTurma(models.Model):
     class Meta:
         verbose_name = 'Relação Professor / Turma'
 
-
-
 class Categoria(models.Model):
     categoria_nome = models.CharField('Categoria', max_length=20)
 
     def __str__(self):
         return f'{self.categoria_nome}'
-
 
 class HistoricoMedicoes(models.Model):
     id_aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)

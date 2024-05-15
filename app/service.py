@@ -1,6 +1,5 @@
 from datetime import date
 from .models import Categoria
-from datetime import datetime
 
 PERCENTIS_IMC = {
     'M': {
@@ -149,25 +148,16 @@ PERCENTIS_IMC = {
 
 
 def calcular_imc_percentil(aluno, peso, altura):
-    # if aluno.dataNascimento is datetime:
     idade = date.today().year - aluno.dataNascimento.year
     if idade < 6:
         idade = 6
-    # else:
-    #     dataNsc = datetime.strptime(aluno.dataNascimento, '%d/%m/%y %H:%M:%S')
-    #     idade = date.today().year - dataNsc
-        
-    # print(f' idade  ==> {aluno.dataNascimento.year}')
-    # print(f' idade calculada ==> {idade}')
     sexo = aluno.sexo
     # print(f'sexo aluno ===> {aluno.sexo}')
     imc = peso / (altura ** 2)
     # print(f' IMC ===> {imc}')
     imc_perc_50 = PERCENTIS_IMC[sexo][str(idade)]
-
     # Calcule a % de adequação do IMC
     adequacao = (imc / imc_perc_50) * 100
-
     # Determine a categoria
     if adequacao > 160:
         categoria_nome = "Obesidade"
