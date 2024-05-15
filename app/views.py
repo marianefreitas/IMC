@@ -97,10 +97,10 @@ def dashboard(request):
         obesidade_f = [x["dcount"] for x in obesidade_f]
 
         data_json_f = {
-                    'abaixo_peso': list(abaixo_peso_f),
-                    'peso_normal': list(peso_normal_f),
-                    'sobrepeso': list(sobrepeso_f),
-                    'obesidade': list(obesidade_f)
+        'abaixo_peso': list(abaixo_peso_f),
+        'peso_normal': list(peso_normal_f),
+        'sobrepeso': list(sobrepeso_f),
+        'obesidade': list(obesidade_f)
         }
 
         abaixo_peso_m = HistoricoMedicoes.objects.select_related("categoria", "id_turma", "id_aluno").values(
@@ -118,10 +118,10 @@ def dashboard(request):
         obesidade_m = [x["dcount"] for x in obesidade_m]
 
         data_json_m = {
-                    'abaixo_peso': list(abaixo_peso_m),
-                    'peso_normal': list(peso_normal_m),
-                    'sobrepeso': list(sobrepeso_m),
-                    'obesidade': list(obesidade_m)
+        'abaixo_peso': list(abaixo_peso_m),
+        'peso_normal': list(peso_normal_m),
+        'sobrepeso': list(sobrepeso_m),
+        'obesidade': list(obesidade_m)
         }
 
         if request.method == "POST":
