@@ -49,23 +49,23 @@ def dashboard(request):
         data_donnut = [imc_padrao, imc_outlier]
 
         choices_nome = [(i['id_aluno'], i['id_aluno__nome'].title() + ' ' + i['id_aluno__sobrenome'].title()) for i in HistoricoMedicoes.objects.select_related("id_aluno").values(
-            "id_aluno", "id_aluno__nome", "id_aluno__sobrenome").distinct().order_by("id_aluno__nome")]               
+            "id_aluno", "id_aluno__nome", "id_aluno__sobrenome").distinct().order_by("id_aluno__nome")]
         choices_nome.insert(0, (0, "Todos"))
-        filtro.fields['nome'].choices=choices_nome
+        filtro.fields['nome'].choices = choices_nome
         choices_categoria = [(i.id, i.__str__) for i in Categoria.objects.all()]
         choices_categoria.insert(0, (0, "Todas"))
-        filtro.fields['categoria'].choices=choices_categoria
+        filtro.fields['categoria'].choices = choices_categoria
         choices_turma = [(i.id, i.__str__) for i in Turma.objects.all()]
         choices_turma.insert(0, (0, "Todas"))
-        filtro.fields['turma'].choices=choices_turma
+        filtro.fields['turma'].choices = choices_turma
         abaixo_peso = HistoricoMedicoes.objects.select_related("categoria", "id_turma").values(
-            "id_turma__ano", "categoria_id").filter(categoria_id__id = '1').annotate(dcount = Count('categoria_id')).order_by()
+            "id_turma__ano", "categoria_id").filter(categoria_id__id='1').annotate(dcount=Count('categoria_id')).order_by()
         peso_normal = HistoricoMedicoes.objects.select_related("categoria", "id_turma").values(
-            "id_turma__ano", "categoria_id").filter(categoria_id__id = '2').annotate(dcount = Count('categoria_id')).order_by()
+            "id_turma__ano", "categoria_id").filter(categoria_id__id ='2').annotate(dcount=Count('categoria_id')).order_by()
         sobrepeso = HistoricoMedicoes.objects.select_related("categoria", "id_turma").values(
-            "id_turma__ano", "categoria_id").filter(categoria_id__id = '3').annotate(dcount = Count('categoria_id')).order_by()
+            "id_turma__ano", "categoria_id").filter(categoria_id__id='3').annotate(dcount=Count('categoria_id')).order_by()
         obesidade = HistoricoMedicoes.objects.select_related("categoria", "id_turma").values(
-            "id_turma__ano", "categoria_id").filter(categoria_id__id = '4').annotate(dcount = Count('categoria_id')).order_by()
+            "id_turma__ano", "categoria_id").filter(categoria_id__id ='4').annotate(dcount=Count('categoria_id')).order_by()
 
         abaixo_peso = [x["dcount"] for x in abaixo_peso]
         peso_normal = [x["dcount"] for x in peso_normal]
@@ -96,7 +96,8 @@ def dashboard(request):
         sobrepeso_f = [x["dcount"] for x in sobrepeso_f]
         obesidade_f = [x["dcount"] for x in obesidade_f]
 
-        data_json_f = {'abaixo_peso': list(abaixo_peso_f),
+        data_json_f = {
+                        'abaixo_peso': list(abaixo_peso_f),
                         'peso_normal': list(peso_normal_f),
                         'sobrepeso': list(sobrepeso_f),
                         'obesidade': list(obesidade_f)
@@ -116,7 +117,8 @@ def dashboard(request):
         sobrepeso_m = [x["dcount"] for x in sobrepeso_m]
         obesidade_m = [x["dcount"] for x in obesidade_m]
 
-        data_json_m = {'abaixo_peso': list(abaixo_peso_m),
+        data_json_m = {
+                        'abaixo_peso': list(abaixo_peso_m),
                         'peso_normal': list(peso_normal_m),
                         'sobrepeso': list(sobrepeso_m),
                         'obesidade': list(obesidade_m)
@@ -128,10 +130,10 @@ def dashboard(request):
             temp_turma = request.POST['turma']
             temp_order = request.POST['order']
 
-            filtro.fields['nome'].initial=temp_nome
-            filtro.fields['categoria'].initial=temp_categoria
-            filtro.fields['turma'].initial=temp_turma
-            filtro.fields['order'].initial=temp_order
+            filtro.fields['nome'].initial = temp_nome
+            filtro.fields['categoria'].initial = temp_categoria
+            filtro.fields['turma'].initial = temp_turma
+            filtro.fields['order'].initial = temp_order
             # FILTRA NOME , CATEGORIA E TURMA
             if temp_nome == "0" and temp_categoria == "0" and temp_turma == "0":
                 historico = HistoricoMedicoes.objects.select_related("categoria", "id_turma", "id_aluno").values(
@@ -145,14 +147,14 @@ def dashboard(request):
 
             elif temp_nome != "0" and temp_categoria != "0" and temp_turma == "0":
                 historico = HistoricoMedicoes.objects.select_related("categoria", "id_turma", "id_aluno").values(
-                    "timeStamp", "altura", "peso", "imc", "categoria__categoria_nome", "id_turma__descricao").filter(id_aluno=temp_nome, categoria =temp_categoria).annotate(
+                    "timeStamp", "altura", "peso", "imc", "categoria__categoria_nome", "id_turma__descricao").filter(id_aluno=temp_nome, categoria=temp_categoria).annotate(
                         fullName=Concat('id_aluno__nome', Value(' '), 'id_aluno__sobrenome'))
 
             elif temp_nome != "0" and temp_categoria != "0" and temp_turma != "0":
                 historico = HistoricoMedicoes.objects.select_related("categoria", "id_turma", "id_aluno").values(
                     "timeStamp", "altura", "peso", "imc", "categoria__categoria_nome", "id_turma__descricao").filter(id_aluno=temp_nome, categoria=temp_categoria, id_turma=temp_turma).annotate(
-                        fullName = Concat('id_aluno__nome', Value(' '), 'id_aluno__sobrenome'))
- 
+                        fullName=Concat('id_aluno__nome', Value(' '), 'id_aluno__sobrenome'))
+
             elif temp_nome == "0" and temp_categoria != "0" and temp_turma == "0":
                 historico = HistoricoMedicoes.objects.select_related("categoria", "id_turma", "id_aluno").values(
                     "timeStamp", "altura", "peso", "imc", "categoria__categoria_nome", "id_turma__descricao").filter(categoria=temp_categoria).annotate(
