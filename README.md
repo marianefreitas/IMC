@@ -1,3 +1,3 @@
 # IMC Projeto
 
-[IMC APP](https://imc-897d27afb2fb.herokuapp.com/)
+[IMC APP](https://db-teste-univesp-14b9b7252196.herokuapp.com)
