@@ -8,7 +8,6 @@ class Turma(models.Model):
     descricao = models.CharField('Descricao', max_length=100)
     ano = models.CharField('Ano', max_length=2)
 
-
     def __str__(self):
         return f'{self.descricao}'
 
@@ -20,7 +19,6 @@ class Aluno(models.Model):
     dataNascimento = models.DateField('Data Nascimento')
     ra = models.CharField('RA', max_length=100)
     turmaAtual = models.ForeignKey(Turma, on_delete=models.CASCADE)
-
 
     def __str__(self):
         return f'{self.nome} {self.sobrenome}'
@@ -34,7 +32,6 @@ class Professor(models.Model):
     senha = models.CharField('Senha', max_length=100)
     username = models.CharField('Nome Usuario', max_length=30, default="null")
 
-
     def __str__(self):
         return f'{self.nome} {self.sobrenome}'
 
@@ -43,10 +40,8 @@ class ProfessorTurma(models.Model):
     id_professor = models.ForeignKey(Professor, on_delete=models.CASCADE, related_name='turmas')
     id_turma = models.ForeignKey(Turma, on_delete=models.CASCADE, default=1)
 
-
     def __str__(self):
         return f'{self.id_professor} {self.id_turma}'
-
 
     class Meta:
         verbose_name = 'Relação Professor / Turma'
@@ -54,7 +49,6 @@ class ProfessorTurma(models.Model):
 
 class Categoria(models.Model):
     categoria_nome = models.CharField('Categoria', max_length=20)
-
 
     def __str__(self):
         return f'{self.categoria_nome}'
