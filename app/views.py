@@ -61,11 +61,11 @@ def dashboard(request):
         abaixo_peso = HistoricoMedicoes.objects.select_related("categoria", "id_turma").values(
             "id_turma__ano", "categoria_id").filter(categoria_id__id='1').annotate(dcount=Count('categoria_id')).order_by()
         peso_normal = HistoricoMedicoes.objects.select_related("categoria", "id_turma").values(
-            "id_turma__ano", "categoria_id").filter(categoria_id__id ='2').annotate(dcount=Count('categoria_id')).order_by()
+            "id_turma__ano", "categoria_id").filter(categoria_id__id='2').annotate(dcount=Count('categoria_id')).order_by()
         sobrepeso = HistoricoMedicoes.objects.select_related("categoria", "id_turma").values(
             "id_turma__ano", "categoria_id").filter(categoria_id__id='3').annotate(dcount=Count('categoria_id')).order_by()
         obesidade = HistoricoMedicoes.objects.select_related("categoria", "id_turma").values(
-            "id_turma__ano", "categoria_id").filter(categoria_id__id ='4').annotate(dcount=Count('categoria_id')).order_by()
+            "id_turma__ano", "categoria_id").filter(categoria_id__id='4').annotate(dcount=Count('categoria_id')).order_by()
 
         abaixo_peso = [x["dcount"] for x in abaixo_peso]
         peso_normal = [x["dcount"] for x in peso_normal]
@@ -97,11 +97,11 @@ def dashboard(request):
         obesidade_f = [x["dcount"] for x in obesidade_f]
 
         data_json_f = {
-                        'abaixo_peso': list(abaixo_peso_f),
-                        'peso_normal': list(peso_normal_f),
-                        'sobrepeso': list(sobrepeso_f),
-                        'obesidade': list(obesidade_f)
-                    }
+                    'abaixo_peso': list(abaixo_peso_f),
+                    'peso_normal': list(peso_normal_f),
+                    'sobrepeso': list(sobrepeso_f),
+                    'obesidade': list(obesidade_f)
+        }
 
         abaixo_peso_m = HistoricoMedicoes.objects.select_related("categoria", "id_turma", "id_aluno").values(
             "id_turma__ano", "categoria_id").filter(categoria_id__id='1', id_aluno_id__sexo='M').annotate(dcount=Count('categoria_id')).order_by()
@@ -118,11 +118,11 @@ def dashboard(request):
         obesidade_m = [x["dcount"] for x in obesidade_m]
 
         data_json_m = {
-                        'abaixo_peso': list(abaixo_peso_m),
-                        'peso_normal': list(peso_normal_m),
-                        'sobrepeso': list(sobrepeso_m),
-                        'obesidade': list(obesidade_m)
-                    }
+                    'abaixo_peso': list(abaixo_peso_m),
+                    'peso_normal': list(peso_normal_m),
+                    'sobrepeso': list(sobrepeso_m),
+                    'obesidade': list(obesidade_m)
+        }
 
         if request.method == "POST":
             temp_nome = request.POST['nome']
